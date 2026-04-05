@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panama Open Data Hub</title>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
@@ -17,7 +18,6 @@
             font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #f4f7fb, #e8eef7);
             color: #1f2937;
-            line-height: 1.6;
         }
 
         header {
@@ -27,251 +27,115 @@
             text-align: center;
         }
 
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-        }
-
-        header p {
-            max-width: 700px;
-            margin: 0 auto;
-            font-size: 1.1rem;
-        }
-
         nav {
             background: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            padding: 15px 20px;
+            padding: 15px;
             text-align: center;
-            position: sticky;
-            top: 0;
         }
 
         nav a {
-            text-decoration: none;
-            color: #0b3d91;
             margin: 0 15px;
+            color: #0b3d91;
             font-weight: bold;
+            text-decoration: none;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 40px auto;
             padding: 0 20px;
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 30px;
-            color: #0b3d91;
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        }
-
-        .highlight,
-        .chart-section,
-        .newsletter {
-            margin-top: 50px;
-            border-radius: 16px;
-            padding: 35px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        }
-
-        .highlight,
         .chart-section {
             background: white;
-        }
-
-        .highlight h2,
-        .chart-section h2 {
-            color: #0b3d91;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .chart-section p {
-            text-align: center;
-            margin-bottom: 25px;
+            padding: 30px;
+            border-radius: 16px;
+            margin-top: 40px;
         }
 
         .chart-wrapper {
-            max-width: 900px;
-            height: 420px;
-            margin: 0 auto;
-            position: relative;
+            height: 400px; /* 🔥 IMPORTANT */
         }
 
-        .newsletter {
-            background: linear-gradient(135deg, #0b3d91, #1456c3);
-            color: white;
-            text-align: center;
-        }
-
-        .newsletter h2 {
-            margin-bottom: 10px;
-        }
-
-        .newsletter p {
-            margin-bottom: 20px;
-        }
-
-        .newsletter form {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .newsletter input {
-            padding: 14px;
-            width: 280px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-        }
-
-        .newsletter button {
-            padding: 14px 22px;
-            border: none;
-            border-radius: 10px;
-            background: #fbbf24;
-            color: #1f2937;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 1rem;
+        canvas {
+            width: 100% !important;
+            height: 100% !important;
         }
 
         footer {
             text-align: center;
-            padding: 30px 20px;
-            margin-top: 50px;
-            color: #6b7280;
-            font-size: 0.95rem;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
         }
     </style>
 </head>
+
 <body>
 
-    <header>
-        <h1>Panama Open Data Hub</h1>
-        <p>
-            Une plateforme simple pour explorer les données ouvertes du Panama,
-            suivre l’actualité, et découvrir des analyses accessibles à tous.
+<header>
+    <h1>Panama Open Data Hub</h1>
+    <p>Explorer les données ouvertes du Panama</p>
+</header>
+
+<nav>
+    <a href="#">Accueil</a>
+    <a href="#graphique">Population</a>
+</nav>
+
+<div class="container">
+
+    <div class="chart-section" id="graphique">
+        <h2 style="text-align:center;">Population du Panama</h2>
+
+        <div class="chart-wrapper">
+            <canvas id="populationChart"></canvas>
+        </div>
+
+        <p style="text-align:center; margin-top:15px;">
+            Source : INEC Panama
         </p>
-    </header>
-
-    <nav>
-        <a href="#">Accueil</a>
-        <a href="#donnees">Données</a>
-        <a href="#graphique">Population</a>
-        <a href="#">Presse</a>
-        <a href="#">Newsletter</a>
-    </nav>
-
-    <div class="container">
-        <h2 class="section-title" id="donnees">Ce que tu trouveras sur le site</h2>
-
-        <div class="cards">
-            <div class="card">
-                <h3>📊 Données ouvertes</h3>
-                <p>Explore des jeux de données sur la population, l’économie et le tourisme.</p>
-            </div>
-
-            <div class="card">
-                <h3>📰 Revue de presse</h3>
-                <p>Consulte une sélection d’articles récents sur le Panama.</p>
-            </div>
-
-            <div class="card">
-                <h3>📈 Visualisations</h3>
-                <p>Découvre des graphiques simples pour mieux comprendre les tendances.</p>
-            </div>
-        </div>
-
-        <div class="highlight">
-            <h2>Un projet autour des données publiques</h2>
-            <p>
-                L’objectif est de rendre les données du Panama plus lisibles,
-                plus accessibles et plus utiles à travers un site moderne et pédagogique.
-            </p>
-        </div>
-
-        <div class="chart-section" id="graphique">
-            <h2>Population du Panama</h2>
-            <p>Évolution annuelle de la population totale.</p>
-            <div class="chart-wrapper">
-                <canvas id="populationChart"></canvas>
-            </div>
-            <p style="text-align:center; margin-top:20px;">
-                Source : INEC Panama
-            </p>
-        </div>
-
-        <div class="newsletter">
-            <h2>Reçois les mises à jour</h2>
-            <p>Inscris-toi pour suivre les nouveaux jeux de données et les analyses publiées.</p>
-            <form>
-                <input type="email" placeholder="Ton adresse email">
-                <button type="submit">S’inscrire</button>
-            </form>
-        </div>
     </div>
 
-    <footer>
-        © 2026 Panama Open Data Hub — Projet personnel autour de l’open data au Panama
-    </footer>
+</div>
 
-    <script>
-        async function loadChart() {
-            try {
-                const response = await fetch('./data/population-total.json');
-                if (!response.ok) {
-                    throw new Error('Impossible de charger le fichier JSON');
-                }
+<footer>
+    © 2026 Panama Open Data Hub
+</footer>
 
-                const data = await response.json();
+<script>
+window.addEventListener('load', async () => {
+    try {
+        const response = await fetch('./data/population-total.json');
+        const data = await response.json();
 
-                const labels = data.map(d => d.year);
-                const values = data.map(d => d.population);
+        const labels = data.map(d => d.year);
+        const values = data.map(d => d.population);
 
-                const ctx = document.getElementById('populationChart').getContext('2d');
+        const ctx = document.getElementById('populationChart').getContext('2d');
 
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                            label: 'Population du Panama',
-                            data: values,
-                            borderWidth: 2,
-                            tension: 0.3,
-                            fill: false
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false
-                    }
-                });
-            } catch (error) {
-                console.error('Erreur chargement graphique :', error);
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Population',
+                    data: values,
+                    borderWidth: 3,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
             }
-        }
+        });
 
-        loadChart();
-    </script>
+    } catch (error) {
+        console.error("Erreur :", error);
+    }
+});
+</script>
 
 </body>
 </html>
